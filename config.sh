@@ -28,8 +28,32 @@ configure_docker() {
         printf "DONE.\n"
     fi
 }
+configure_ssh() {
+    read -r -p "Enable SSH Server? [y/N] " answer
+    if [[ "$answer" != y ]] && [[ "$answer" != Y ]]; then
+        printf 'Skipping SSH Server...\n'
+    else
+        printf "\nStarting service..."
+        sudo systemctl start sshd
+        
+	printf "DONE.\n"
+    fi
+}
+configure_lang() {
+    read -r -p "Configure Hungarian Keyboard Layout? [y/N] " answer
+    if [[ "$answer" != y ]] && [[ "$answer" != Y ]]; then
+        printf 'Skippin Hungarian Keyboard Layout...\n'
+    else
+        printf "\nConfiguring Hungarian Keyboard Layout..."
+	sudo localectl set-x11-keymap hu
+	sudo localectl set-keymap hu
+
+        printf "DONE.\n"
+    fi
+}
 
 enable_docker
 configure_docker
-
+configure_ssh
+configure_lang
 printf "Configuration completed.\n"

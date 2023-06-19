@@ -15,7 +15,7 @@ package_list() {
 install_packages() {
     printf 'Installing packages for Centos...\n'
 
-    sudo yum -y "$(package_list)"
+    sudo yum -y install $(package_list)
 
     printf "Done.\n"
 }
